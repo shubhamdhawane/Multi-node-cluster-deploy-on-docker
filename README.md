@@ -112,7 +112,7 @@ docker rm my-cassandra-1
 ```
 #### Phase 3: Building a three-nodes Cassandra cluster
 
-13. We will create a cluster of three Cassandra nodes; the first Cassandra node will be called `cassandra-1`.  we will use Cassandra  3.11.
+We will create a cluster of three Cassandra nodes; the first Cassandra node will be called `cassandra-1`.  we will use Cassandra  3.11.
 
 * We will interact with the cluster using the `nodetool`.
 * The `nodetool` utility is a command-line interface for managing a Cassandra cluster. The Cassandra cluster will work as one unique database system to manipulate data.
@@ -130,4 +130,79 @@ docker run --name cassandra-1 -d cassandra:3.11
 ```bash
 docker inspect cassandra-1
 ```
+>  The output shows the configuration parameters of our container; if we want to extract a particular value, we can use the following command.
+>
+> * The command extracts the `IPAddress` of container `cassandra-1`
+
+```bash
+$ docker inspect --format='{{ .NetworkSettings.IPAddress }}' cassandra-1
+
+# The output is the container IP address
+# 172.17.0.2
+```
+There are different ways to create a cluster; the most common practice is to set up a cluster configuring the IP addresses of containers or VMs. Since we run everything in the same VM, we can use the container names rather than IPs.
+    * Before we proceed, let's make sure that our container is up and running. It should be up and running as we extracted the IP address.
+
+```bash
+$ docker ps -a
+```
+ Let's use the `nodetool` command in `cassandra-1` to check if our Cassandra node is up and running.
+
+```bash
+$ docker exec -i -t cassandra-1 bash -c 'nodetool status'
+```
+> * The output should look like this:
+>
+> ```bash
+> Datacenter: datacenter1
+> =======================
+> Status=Up/Down
+> |/ State=Normal/Leaving/Joining/Moving
+> --  Address     Load       Tokens       Owns (effective)  Host ID                               Rack
+> UN  172.17.0.2  100.22 KiB  256          100.0%            abc2a2ee-9bff-415f-8cd0-f8a19295e846  rack1
+> ```
+>
+> * The output shows that our container is in `UN` status ( Up and Normal) :happy:
+
+16. Let's connect our second container. Run the following command to create the second Cassandra node `cassandra-2`. 
+
+```bash
+$ docker run --name cassandra-2 -d --link cassandra-1:cassandra cassandra:3.11
+```
+
+> * We used the `--link cassandra1:cassandra` option to link `cassandra-1` to `cassandra-2`. This will create our cluster.
+
+17. Let us check the status of the containers.
+
+```bash
+$ docker exec -i -t cassandra-1 bash -c 'nodetool status' 
+```
+
+> * The output is:
+>
+> ```
+> Datacenter: datacenter1
+> =======================
+> Status=Up/Down
+> |/ State=Normal/Leaving/Joining/Moving
+> --  Address     Load       Tokens       Owns (effective)  Host ID                               Rack
+> UJ  172.17.0.3  30.47 KiB  256          ?                 bff8c5c1-8af3-4eb9-bfce-a6f90c049972  rack1
+> UN  172.17.0.2  70.9 KiB   256          100.0%            abc2a2ee-9bff-415f-8cd0-f8a19295e846  rack1
+>```
+>
+> * If you see a question mark (**?**) in **Owns**, that’s fine!
+> * You might notice that the status is `UJ` , which means Up and in Join (not yet in Normal status).
+> * Wait for the containers to get synchronised; this will take a minute or two, then rerun the same command; the output should look like this:
+> >
+> ```
+> Datacenter: datacenter1
+> =======================
+> Status=Up/Down
+> |/ State=Normal/Leaving/Joining/Moving
+> --  Address     Load       Tokens       Owns (effective)  Host ID                               Rack
+> UN  172.17.0.3  70.92 KiB  256          100.0%            bff8c5c1-8af3-4eb9-bfce-a6f90c049972  rack1
+> UN  172.17.0.2  75.93 KiB  256          100.0%            abc2a2ee-9bff-415f-8cd0-f8a19295e846  rack1
+> ```
+>
+> * Both containers are up and running in normal state (`UN`) as part of the same datacenter.
 
