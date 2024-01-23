@@ -191,9 +191,7 @@ docker exec -i -t cassandra-1 bash -c 'nodetool status'
 >```
 >
 > * If you see a question mark (**?**) in **Owns**, that’s fine!
-> * You might notice that the status is `UJ` , which means Up and in Join (not yet in Normal status).
-> * Wait for the containers to get synchronised; this will take a minute or two, then rerun the same command; the output should look like this:
-> >
+> * You noticed that the status is `UJ` , which means Up and in Join
 > ```
 > Datacenter: datacenter1
 > =======================
@@ -247,21 +245,8 @@ docker ps -a
 ```
 
 > The output shows three running containers :smile:
->
-> ```bash
-> CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS         PORT
-> S                                         NAMES
-> 40c75887c93f   cassandra:3.11   "docker-entrypoint.s…"   2 minutes ago    Up 2 minutes   7000
-> -7001/tcp, 7199/tcp, 9042/tcp, 9160/tcp   cassandra-3
-> 2fad620a2e2b   cassandra:3.11   "docker-entrypoint.s…"   12 minutes ago   Up 5 minutes   7000
-> -7001/tcp, 7199/tcp, 9042/tcp, 9160/tcp   cassandra-2
-> ae96e2e67b8e   cassandra:3.11   "docker-entrypoint.s…"   12 minutes ago   Up 5 minutes   7000
-> -7001/tcp, 7199/tcp, 9042/tcp, 9160/tcp   cassandra-1
-> ```
->
-> * If one or more containers are in `exited` then something went wrong... In this case, delete the `exited` container and build your cluster again.
 
-Then run the `nodetool` again in `cassandra-2`. Note you can run this command to any node, as this refers to the cluster, rather than the node.
+Then run the `nodetool` again in `cassandra-2`.
 
 ```bash
 docker exec -i -t cassandra-2 bash -c 'nodetool status'
