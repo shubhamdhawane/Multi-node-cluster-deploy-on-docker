@@ -69,5 +69,45 @@ sudo usermod -aG docker docker-user
  Let's switch users, type the following command.
 
 ```bash
-$ su - docker-user
+su - docker-user
 ```
+* We should be ready now! Try the following command to see if everything works fine.
+
+```bash
+$ docker
+```
+
+* You should be able to see a list of available options and commands. We can always refer to this when we need to explore using commands and options.
+
+#### Phase 2: Running a Cassandra container
+
+ Our next step is to create a create a Cassandra container.
+
+* Let us run a new Casandra node using Docker, we can name the new container `my-cassandra-1`.
+
+```bash
+docker run --name my-cassandra-1 -m 2g -d cassandra:3.11
+```
+
+> The option `-m 2g` will assign 2GB of memory in this container.
+
+> We just created an Apache Cassandra container `my-cassandra-1; let us check the active containers running the following command.
+
+```bash
+docker ps -a
+```
+
+> The container is up and running!
+
+* Let's stop the container and create our first cluster.
+
+```bash
+docker stop my-cassandra-1 
+```
+
+* Then delete it.
+
+```bash
+docker rm my-cassandra-1 
+```
+
