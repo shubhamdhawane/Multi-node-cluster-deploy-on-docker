@@ -22,6 +22,21 @@ we will need a ec2 instance. I used the following configuration.
   Lets start
 
 Let's update our system.
-
 ```bash
-$ sudo apt-get update
+sudo apt-get update
+
+We can now install Docker; make sure you type `Y` for Yes when prompted.
+```bash
+sudo apt-get install docker.io -y
+
+ What is the Docker version? Run the next command
+```bash
+sudo docker --version
+
+ Let's create a new user called docker-user. You can use this user to run our containers.
+```bash
+sudo adduser docker-user
+
+ We will need to give `sudo` access to our new `docker-user`, so let's add it to the `sudo` group.
+```bash
+sudo usermod -aG sudo docker-user
