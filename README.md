@@ -11,10 +11,17 @@ Today's lab session focused on Apache Cassandra! We will install and run the bas
 * Run a Cassandra cluster
 * Run the basic commands to interact with Cassandra
 
-Phase 1: Setting up our environment
+# Phase 1: Setting up our environment
 we will need a ec2 instance. I used the following configuration.
-Machine type: t2-large
-HTTP traffic: On
-HTTPS traffic: On
-Image: ubuntu-20.04
-Size (GB): 30
+* Machine type: t2-large
+* HTTP traffic: On
+* HTTPS traffic: On
+* Image: ubuntu-20.04
+* Size (GB): 30
+
+  Lets start
+
+Let's update our system.
+
+```bash
+$ sudo apt-get update
