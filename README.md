@@ -6,7 +6,7 @@ providing high availability with no single point of failure
 
 Today's lab session focused on Apache Cassandra! We will install and run the basic commands to containerise and create a cluster of Cassandra NoSQL nodes.
 
-#focuses on how to:
+# Focuses on how to:
 * Configure Cassandra containers on aws ec2
 * Run a Cassandra cluster
 * Run the basic commands to interact with Cassandra
