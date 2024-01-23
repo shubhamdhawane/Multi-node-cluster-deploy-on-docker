@@ -110,4 +110,24 @@ docker stop my-cassandra-1
 ```bash
 docker rm my-cassandra-1 
 ```
+#### Phase 3: Building a three-nodes Cassandra cluster
+
+13. We will create a cluster of three Cassandra nodes; the first Cassandra node will be called `cassandra-1`.  we will use Cassandra  3.11.
+
+* We will interact with the cluster using the `nodetool`.
+* The `nodetool` utility is a command-line interface for managing a Cassandra cluster. The Cassandra cluster will work as one unique database system to manipulate data.
+
+```bash
+docker run --name cassandra-1 -d cassandra:3.11
+```
+
+> Using the `docker ps -a command`, you can check if your container is up and running.
+>
+> It is good to check if the container is up and running each time we create one. 
+
+* Let us inspect `cassandra-1`.
+
+```bash
+docker inspect cassandra-1
+```
 
