@@ -36,10 +36,22 @@ sudo apt-get install docker.io -y
 ```bash
 sudo docker --version
 ```
+
  Let's create a new user called docker-user. You can use this user to run our containers.
 ```bash
 sudo adduser docker-user
+```
 
  We will need to give `sudo` access to our new `docker-user`, so let's add it to the `sudo` group.
 ```bash
 sudo usermod -aG sudo docker-user
+```
+> If we don't add the user in the `sudo` group, we will not run `sudo` commands.
+
+ Now, run the following command; this will allow us to give `sudo` permissions to docker to run our commands. 
+
+```bash
+sudo usermod -aG docker docker-user
+```
+
+> This command ensures that our new `docker-user` can run docker commands without using the `sudo` keyword.
