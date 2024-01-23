@@ -25,8 +25,7 @@ Let's update our system.
 
 ```bash
 sudo apt-get update
-
-We can now install Docker; make sure you type `Y` for Yes when prompted.
+# We can now install Docker; make sure you type `Y` for Yes when prompted.
 
 ```bash
 sudo apt-get install docker.io -y
