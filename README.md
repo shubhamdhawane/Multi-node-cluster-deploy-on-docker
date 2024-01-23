@@ -54,4 +54,20 @@ sudo usermod -aG sudo docker-user
 sudo usermod -aG docker docker-user
 ```
 
-> This command ensures that our new `docker-user` can run docker commands without using the `sudo` keyword.
+> This command ensures that our new `docker-user` can run docker commands without using the `sudo` keyword. For example, instead of running always: 
+>
+> ```bash
+> $ sudo docker <command> 
+> ```
+>
+> we will be able to run:
+>
+> ```bash
+> $ docker <command>
+> ```
+
+ Let's switch users, type the following command.
+
+```bash
+$ su - docker-user
+```
