@@ -22,6 +22,7 @@ we will need a ec2 instance. I used the following configuration.
   Lets start
 
 Let's update our system.
+
 ```bash
 sudo apt-get update
 
