@@ -1,4 +1,4 @@
-# Multi-node-cluster-deploy-on-docker
+# Cassandra Database Deployment On Docker 
 
 Introduction to Apache Cassandra
 Apache Cassandra is an open-source, distributed NoSQL database management system designed to handle large amounts of data across many commodity servers,
